@@ -12,22 +12,21 @@ white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
 header_color = (50, 50, 50)
-button_color = (0, 0, 128)  # Dark blue button color
+button_color = (0, 0, 128)  
 
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Snake Game")
 
 clock = pygame.time.Clock()
 
-# Load fonts (separate fonts for different purposes)
 try:
-    game_over_font = pygame.font.Font("PressStart2P-Regular.ttf", 48)  # For "Game Over"
+    game_over_font = pygame.font.Font("PressStart2P-Regular.ttf", 48)  
 except pygame.error:
     print("PressStart2P font not found. Using default font for Game Over.")
-    game_over_font = pygame.font.Font(None, 48)  # Default font if not found
+    game_over_font = pygame.font.Font(None, 48)
 
-default_font = pygame.font.Font(None, 36)  # Default font for score, etc.
-button_font = pygame.font.Font(None, 24)  # Default font for buttons
+default_font = pygame.font.Font(None, 36)  
+button_font = pygame.font.Font(None, 24)  
 
 
 def draw_snake(snake_list):
@@ -40,7 +39,7 @@ def draw_food(food):
 def generate_food(snake_list):
     while True:
         food_x = random.randrange(0, width // block_size) * block_size
-        food_y = random.randrange(40 // block_size, (height - 40) // block_size) * block_size # Start below header
+        food_y = random.randrange(40 // block_size, (height - 40) // block_size) * block_size 
         food = (food_x, food_y)
         if food not in snake_list:
             return food
@@ -51,13 +50,13 @@ def game_over(final_score, high_score):
     play_again_text = button_font.render("Play Again", True, white)
     quit_text = button_font.render("Quit", True, white)
 
-    play_again_rect = play_again_text.get_rect()  # Get text rect for centering
+    play_again_rect = play_again_text.get_rect()  
     quit_rect = quit_text.get_rect()
 
-    play_again_x = width // 2 - play_again_rect.width // 2  # Center horizontally
+    play_again_x = width // 2 - play_again_rect.width // 2 
     quit_x = width // 2 - quit_rect.width // 2
 
-    play_again_y = height // 2 + 60 + (40 - play_again_rect.height) // 2  # Center vertically
+    play_again_y = height // 2 + 60 + (40 - play_again_rect.height) // 2  
     quit_y = height // 2 + 110 + (40 - quit_rect.height) // 2
 
     while True:
@@ -84,23 +83,23 @@ def game_over(final_score, high_score):
 
         screen.fill(black)
 
-        game_over_text = game_over_font.render("Game Over!", True, red)  # PressStart2P or default
+        game_over_text = game_over_font.render("Game Over!", True, red)  
         game_over_rect = game_over_text.get_rect(center=(width // 2, height // 2 - 80))
         screen.blit(game_over_text, game_over_rect)
 
-        score_text = default_font.render(f"Score: {final_score}", True, white)  # Default font
+        score_text = default_font.render(f"Score: {final_score}", True, white)  
         score_rect = score_text.get_rect(center=(width // 4, height // 2 - 20))
         screen.blit(score_text, score_rect)
 
-        high_score_text = default_font.render(f"High Score: {high_score}", True, white)  # Default font
+        high_score_text = default_font.render(f"High Score: {high_score}", True, white)  
         high_score_rect = high_score_text.get_rect(center=(3 * width // 4, height // 2 - 20))
         screen.blit(high_score_text, high_score_rect)
 
-        pygame.draw.rect(screen, button_color, (width // 2 - 70, height // 2 + 60, 140, 40), 0)  # Buttons
-        pygame.draw.rect(screen, button_color, (width // 2 - 70, height // 2 + 110, 140, 40), 0)  # Buttons
+        pygame.draw.rect(screen, button_color, (width // 2 - 70, height // 2 + 60, 140, 40), 0)  
+        pygame.draw.rect(screen, button_color, (width // 2 - 70, height // 2 + 110, 140, 40), 0)  
 
-        screen.blit(play_again_text, (play_again_x, play_again_y))  # Centered text
-        screen.blit(quit_text, (quit_x, quit_y))  # Centered text
+        screen.blit(play_again_text, (play_again_x, play_again_y)) 
+        screen.blit(quit_text, (quit_x, quit_y))  
 
         pygame.display.flip()
         clock.tick(10)
@@ -175,10 +174,10 @@ while running:
 
         pygame.draw.rect(screen, header_color, (0, 0, width, 40))
 
-        score_text = default_font.render(f"Score: {score}", True, white)  # Default font
+        score_text = default_font.render(f"Score: {score}", True, white)  
         screen.blit(score_text, (10, 10))
 
-        high_score_text = default_font.render(f"High Score: {high_score}", True, white)  # Default font
+        high_score_text = default_font.render(f"High Score: {high_score}", True, white)  
         screen.blit(high_score_text, (width - 180, 10))
 
         draw_snake(snake_list)
